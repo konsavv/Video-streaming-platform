@@ -1,18 +1,18 @@
-const sqlite3 = require("better-sqlite3");
+const sqlite3 = require("sqlite3").verbose();
 
 const DBSOURCE = "db.sqlite";
 
-const db = new sqlite3(DBSOURCE);
+const db = new sqlite3.Database(DBSOURCE);
 
 //CREATE VIDEOFILE TABLE
 try {
-  db.prepare(`CREATE TABLE videofile
+  db.prepare(`CREATE TABLE videofile(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               filename text UNIQUE,
               duration text,
               is_fav integer,
               is_del integer
-  `).run();
+  )`).run();
 } catch (error) {
   console.log("error occured in create table step", error)
 }
