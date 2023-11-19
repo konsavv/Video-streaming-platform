@@ -7,8 +7,9 @@
     </div>
     <div>
       <div class="justify-self-end flex gap-4 items-center justify-center">
-        <IconUpload class="cursor-pointer" />
+        <IconUpload class="cursor-pointer" @click="doFileUpload" />
         <IconTrash v-if="currentRoute == 'trash'" class="cursor-pointer" />
+        <input type="file" class="hidden" ref="fileElement" accept=".mp4,.mov">
       </div>
     </div>
   </nav>
@@ -16,16 +17,21 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import IconTrash from './components/icons/IconTrash.vue';
 import IconUpload from './components/icons/IconUpload.vue';
 
-const router = useRouter()
+const router = useRouter();
+const fileElement = ref();
 
 const currentRoute = computed(() => {
   return router.currentRoute.value.name
 });
+
+const doFileUpload = () => {
+  fileElement.value.click();
+}
 
 
 </script>

@@ -35,5 +35,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-//API FOR UPLOADING THE FILES
-app.post("/uploadVideo", uploads.single("videofile"), function (_req, _res) { })
+app.post("/uploadVideo", uploads.single("videofile"), function (_req, _res) {
+  getVideoDuration(_req.file.originalname, () => {
+    _res.json({ status: 1 });
+  })
+})
+
+app.listen(port, () => {
+  console.log("Server has started..");
+})
