@@ -9,7 +9,7 @@
       <div class="justify-self-end flex gap-4 items-center justify-center">
         <IconUpload class="cursor-pointer" @click="doFileUpload" />
         <IconTrash v-if="currentRoute == 'trash'" class="cursor-pointer" />
-        <input type="file" class="hidden" ref="fileElement" accept=".mp4,.mov">
+        <input type="file" class="hidden" ref="fileElement" accept=".mp4,.mov" @change="doRealFileupload">
       </div>
     </div>
   </nav>
@@ -21,9 +21,11 @@ import { computed, ref } from 'vue';
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import IconTrash from './components/icons/IconTrash.vue';
 import IconUpload from './components/icons/IconUpload.vue';
+import { useMainStore } from './stores/mainStore.ts';
 
 const router = useRouter();
 const fileElement = ref();
+const store = useMainStore();
 
 const currentRoute = computed(() => {
   return router.currentRoute.value.name
@@ -31,6 +33,11 @@ const currentRoute = computed(() => {
 
 const doFileUpload = () => {
   fileElement.value.click();
+}
+
+const doRealFileupload = () => {
+  let file = fileElement.value.files[0];
+  store.uploadFile(file)
 }
 
 

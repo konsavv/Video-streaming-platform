@@ -23,7 +23,7 @@ try {
 
 // INSERT A NEW VIDEO INTO THE TABLE
 function addToDb(filename, duration) {
-  const statement = db.prepare(`INSERT OR IGNORE INTO videofile (filename, duration, is_fav, is _del) VALUES (?, ?, ?, ?)`);
+  const statement = db.prepare(`INSERT OR IGNORE INTO videofile (filename, duration, is_fav, is_del) VALUES (?, ?, ?, ?)`);
 
   const info = statement.run(filename, duration, 0, 0);
   return info.changes

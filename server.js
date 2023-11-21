@@ -24,7 +24,7 @@ const app = express();
 const port = 3000;
 
 const getVideoDuration = function (file, callback) {
-  getVideoDurationInSeconds("Video/" + file).then((duration) => {
+  getVideoDurationInSeconds("Videos/" + file).then((duration) => {
     db.addToDb(file, duration);
     callback();
   })
