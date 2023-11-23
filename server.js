@@ -40,6 +40,24 @@ app.post("/uploadVideo", uploads.single("videofile"), function (_req, _res) {
     _res.json({ status: 1 });
   })
 })
+app.get("/filelist", function (_req, res) {
+  let filelist = db.getAllFiles();
+  res.json({
+    filelist: filelist
+  })
+})
+app.get("/favfilelist", function (_req, res) {
+  let newfavlist = db.getFavFiles();
+  res.json({
+    filelist: newfavlist
+  })
+})
+app.get("/binfilelist", function (_req, res) {
+  let newbinlist = db.getDelFiles();
+  res.json({
+    filelist: newbinlist
+  })
+})
 
 app.listen(port, () => {
   console.log("Server has started..");

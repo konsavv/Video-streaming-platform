@@ -29,7 +29,20 @@ function addToDb(filename, duration) {
   return info.changes
 }
 
+function getAllFiles() {
+  return db.prepare(`SELECT * FROM videofile WHERE is_fav=0 AND is_del=0`).all()
+}
+function getFavFiles() {
+  return db.prepare(`SELECT * FROM videofile WHERE is_fav=1`).all()
+}
+function getDelFiles() {
+  return db.prepare(`SELECT * FROM videofile WHERE is_del=1`).all()
+}
+
 module.exports = {
   db,
   addToDb,
+  getAllFiles,
+  getFavFiles,
+  getDelFiles
 };

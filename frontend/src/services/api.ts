@@ -14,3 +14,18 @@ export async function uploadFileApi(file: any ){
   
   return response
 }
+
+export async function getFileListApi() {
+  const response = await axios.get(`${url}/filelist`)
+  return response
+}
+
+export async function getFavFileListApi() {
+  const response = await axios.get(`${url}/favfilelist`)
+  return response
+}
+
+export async function getTrashedFileListApi() {
+  const response = await axios.get(`${url}/binfilelist`)
+  return response
+}
