@@ -32,6 +32,7 @@ const getVideoDuration = function (file, callback) {
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use('/assets', express.static("assets"));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
@@ -44,19 +45,19 @@ app.get("/filelist", function (_req, res) {
   let filelist = db.getAllFiles();
   res.json({
     filelist: filelist
-  })
+  });
 })
 app.get("/favfilelist", function (_req, res) {
   let newfavlist = db.getFavFiles();
   res.json({
     filelist: newfavlist
-  })
+  });
 })
 app.get("/binfilelist", function (_req, res) {
   let newbinlist = db.getDelFiles();
   res.json({
     filelist: newbinlist
-  })
+  });
 })
 
 app.listen(port, () => {

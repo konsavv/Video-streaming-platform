@@ -21,7 +21,7 @@ import { computed, ref } from 'vue';
 import { RouterLink, RouterView, useRouter } from 'vue-router'
 import IconTrash from './components/icons/IconTrash.vue';
 import IconUpload from './components/icons/IconUpload.vue';
-import { useMainStore } from './stores/mainStore.ts';
+import { useMainStore } from './stores/mainStore';
 
 const router = useRouter();
 const fileElement = ref();

@@ -1,31 +1,31 @@
 import axios from "axios";
-const url = "http://localhost:3000";
+import { url } from "./global";
 
-export async function uploadFileApi(file: any ){
-  
+export async function uploadFileApi(file: any) {
+
   let formdata = new FormData();
 
   formdata.append('videofile', file);
-  const response = await axios.post(`${url}/uploadVideo`,formdata, {
-    headers:{
+  const response = await axios.post(`${url}/uploadVideo`, formdata, {
+    headers: {
       'Content-Type': 'multipart/form-data'
     }
   });
-  
+
   return response
 }
 
-export async function getFileListApi() {
+export async function getFileListApiSevice() {
   const response = await axios.get(`${url}/filelist`)
   return response
 }
 
-export async function getFavFileListApi() {
+export async function getFavFileListApiSevice() {
   const response = await axios.get(`${url}/favfilelist`)
   return response
 }
 
-export async function getTrashedFileListApi() {
+export async function getTrashedFileListApiSevice() {
   const response = await axios.get(`${url}/binfilelist`)
   return response
 }

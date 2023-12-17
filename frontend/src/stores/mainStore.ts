@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
-import { uploadFileApi } from "@/services/api";
+import { uploadFileApi, getFileListApiSevice, getFavFileListApiSevice, getTrashedFileListApiSevice } from "@/services/api";
+import { ref } from "vue"
 
 export const useMainStore = defineStore('mainstore', () => {
   const filelist = ref([]);
@@ -12,22 +13,22 @@ export const useMainStore = defineStore('mainstore', () => {
     })
   }
   const getFileListApi = () => {
-    getFileListApi().then((resp: any) => {
+    getFileListApiSevice().then((resp: any) => {
       filelist.value = resp.data.filelist
     })
   }
 
   const getFavFileListApi = () => {
-    getFavFileListApi().then((resp: any) => {
+    getFavFileListApiSevice().then((resp: any) => {
       favfilelist.value = resp.data.filelist
     })
   }
 
   const getTrashedFileListApi = () => {
-    getTrashedFileListApi().then((resp: any) => {
+    getTrashedFileListApiSevice().then((resp: any) => {
       trashedfilelist.value = resp.data.filelist
     })
   }
-  return { uploadFile, getFileListApi, getFavFileListApi, getTrashedFileListApi }
+  return { filelist, favfilelist, trashedfilelist, uploadFile, getFileListApi, getFavFileListApi, getTrashedFileListApi }
 })
 
