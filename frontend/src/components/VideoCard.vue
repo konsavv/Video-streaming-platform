@@ -1,7 +1,12 @@
 <template>
   <div class="w-full md:w-64 mb-2">
     <div class="relative h-72 rounded-md overflow-hidden bg-black group">
-      <video :src="videosrc" class="h-full w-full object-cover bg-black" preload="metadata" controls></video>
+      <video
+        :src="videosrc"
+        :poster="thumbsrc"
+        class="h-full w-full object-cover bg-black"
+        preload="metadata"
+        controls></video>
 
       <!-- duration badge -->
       <span class="absolute top-2 left-2 z-20 text-xs font-medium text-white bg-black/60 px-1.5 py-0.5 rounded pointer-events-none">
@@ -65,9 +70,14 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), { context: 'home' })
 const store = useMainStore()
 
-// Stream the actual video file (playable). "#t=0.1" shows the first frame as a preview.
+// The playable video stream. "#t=0.1" nudges the browser to the first frame.
 const videosrc = computed(() => {
   return `${url}/videos/${encodeURIComponent(props.videofile.filename)}#t=0.1`
+})
+
+// Generated thumbnail (shown as the video poster until playback starts)
+const thumbsrc = computed(() => {
+  return `${url}/thumbnails/${encodeURIComponent(props.videofile.filename)}.jpg`
 })
 
 const prettyName = computed(() => props.videofile.filename.replace(/\.[^.]+$/, ''))
