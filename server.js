@@ -42,23 +42,48 @@ app.post("/uploadVideo", uploads.single("videofile"), function (_req, _res) {
     _res.json({ status: 1 });
   })
 })
+
 app.get("/filelist", function (_req, res) {
   let filelist = db.getAllFiles();
-  res.json({
-    filelist: filelist
-  });
+  res.json({ filelist: filelist });
 })
 app.get("/favfilelist", function (_req, res) {
   let newfavlist = db.getFavFiles();
-  res.json({
-    filelist: newfavlist
-  });
+  res.json({ filelist: newfavlist });
 })
 app.get("/binfilelist", function (_req, res) {
   let newbinlist = db.getDelFiles();
-  res.json({
-    filelist: newbinlist
-  });
+  res.json({ filelist: newbinlist });
+})
+
+// --- Actions -------------------------------------------------------------
+
+// Toggle favorite on/off
+app.post("/favorite/:id", function (req, res) {
+  const value = db.toggleFav(req.params.id);
+  res.json({ status: value === null ? 0 : 1, is_fav: value });
+})
+
+// Move a video to the trash (soft delete)
+app.post("/trash/:id", function (req, res) {
+  const changes = db.moveToTrash(req.params.id);
+  res.json({ status: changes ? 1 : 0 });
+})
+
+// Restore a video from the trash
+app.post("/restore/:id", function (req, res) {
+  const changes = db.restore(req.params.id);
+  res.json({ status: changes ? 1 : 0 });
+})
+
+// Permanently delete a video (row + file on disk)
+app.delete("/permanent/:id", function (req, res) {
+  const row = db.getById(req.params.id);
+  const changes = db.deletePermanent(req.params.id);
+  if (row) {
+    fs.unlink(path.join("Videos", row.filename), () => { /* best effort */ });
+  }
+  res.json({ status: changes ? 1 : 0 });
 })
 
 app.listen(port, () => {

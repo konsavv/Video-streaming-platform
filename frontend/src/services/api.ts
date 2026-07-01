@@ -29,3 +29,23 @@ export async function getTrashedFileListApiSevice() {
   const response = await axios.get(`${url}/binfilelist`)
   return response
 }
+
+export async function toggleFavoriteApi(id: number) {
+  const response = await axios.post(`${url}/favorite/${id}`)
+  return response
+}
+
+export async function moveToTrashApi(id: number) {
+  const response = await axios.post(`${url}/trash/${id}`)
+  return response
+}
+
+export async function restoreApi(id: number) {
+  const response = await axios.post(`${url}/restore/${id}`)
+  return response
+}
+
+export async function deletePermanentApi(id: number) {
+  const response = await axios.delete(`${url}/permanent/${id}`)
+  return response
+}
